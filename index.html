@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ehsan Ghari | Welcome</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #FF9900;
+            --text: #ffffff;
+            --gray: #888888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Inter', sans-serif; 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* پس‌زمینه متحرک ملایم */
+        .bg-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,153,0,0.15) 0%, rgba(5,5,5,0) 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: -1;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: translate(-50%, -50%) scale(1); }
+            to { transform: translate(-30%, -20%) scale(1.5); }
+        }
+
+        .landing-container {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .logo { 
+            font-weight: 800; 
+            font-size: 2.5rem; 
+            color: var(--accent); 
+            text-decoration: none;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .logo span { color: #fff; }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .option-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            padding: 50px 30px;
+            border-radius: 24px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card i {
+            color: var(--gray);
+            width: 40px;
+            height: 40px;
+            transition: 0.4s;
+        }
+
+        .option-card h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 800;
+            transition: 0.4s;
+        }
+
+        .option-card p {
+            color: #555;
+            font-size: 0.9rem;
+            transition: 0.4s;
+        }
+
+        /* Hover Effects */
+        .option-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            background: #0f0f0f;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .option-card:hover i {
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+
+        .option-card:hover h2 {
+            color: var(--accent);
+        }
+
+        .option-card:hover p {
+            color: var(--gray);
+        }
+
+        /* دایره تزئینی پشت کارت هنگام هاور */
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: var(--accent);
+            filter: blur(60px);
+            opacity: 0;
+            transition: 0.6s;
+            transform: translateX(-50%);
+        }
+
+        .option-card:hover::before {
+            top: 50%;
+            opacity: 0.2;
+        }
+
+        @media (max-width: 600px) {
+            .options-grid { grid-template-columns: 1fr; }
+            .logo { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="landing-container">
+        <div class="logo">EHSAN<span>GHARI</span></div>
+        <p class="subtitle">Visual Storyteller & Editor</p>
+
+        <div class="options-grid">
+            <a href="design.html" class="option-card">
+                <i data-feather="framer"></i>
+                <h2>رزومه طراحی</h2>
+                <p>Thumbnail, Banner, Poster</p>
+            </a>
+
+            <a href="videos.html" class="option-card">
+                <i data-feather="video"></i>
+                <h2>رزومه تدوین</h2>
+                <p>YouTube, Reels, Motion</p>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ehsan Ghari | Video Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #FF9900;
+            --text: #ffffff;
+            --gray: #888888;
+            --card-bg: #0c0c0c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; position: fixed; width: 100%; top: 0;
+            background: rgba(5,5,5,0.85); backdrop-filter: blur(15px); z-index: 100;
+            border-bottom: 1px solid #1a1a1a;
+            direction: ltr;
+        }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--accent); text-decoration: none; }
+        .back-link { 
+            color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 600; 
+            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        /* --- CONTAINER --- */
+        .container { 
+            max-width: 900px; 
+            margin: 150px auto 80px; 
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center; margin-bottom: 60px; color: var(--accent);
+            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 4px; font-weight: 800;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .column-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 30px; font-size: 1.1rem; font-weight: 800;
+            color: #fff; border-right: 3px solid var(--accent); padding-right: 15px;
+        }
+
+        /* --- MINIMAL VIDEO ITEM --- */
+        .video-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 0; border-bottom: 1px solid #151515;
+            text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .video-item span {
+            color: var(--gray); font-size: 0.95rem; font-weight: 500;
+            transition: 0.3s; text-align: right;
+        }
+
+        .video-item i { color: #333; transition: 0.3s; transform: translateX(10px); opacity: 0; }
+
+        .video-item:hover {
+            padding-right: 10px;
+        }
+
+        .video-item:hover span { color: var(--accent); transform: scale(1.02); }
+        
+        .video-item:hover i { 
+            color: var(--accent); opacity: 1; transform: translateX(0); 
+        }
+
+        /* --- FOOTER --- */
+        footer { 
+            text-align: center; padding: 40px; border-top: 1px solid #111; 
+            margin-top: 40px; color: #444; font-size: 0.8rem; 
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .video-grid { grid-template-columns: 1fr; gap: 40px; }
+            .container { margin-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">EHSAN<span>GHARI</span></a>
+        <a href="index.html" class="back-link"><i data-feather="arrow-left"></i> Home</a>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title">Motion & Video Portfolio </h2>
+        
+        <div class="video-grid">
+            
+            <div class="video-column">
+                <div class="column-header">
+                    <i data-feather="youtube"></i> YouTube Edits
+                </div>
+                
+                <a href="https://youtu.be/r4FOA7ekIW4" target="_blank" class="video-item">
+                    <span>یوتیوب فارسی در کنار مردم ❤️</span>
+                    <i data-feather="arrow-left-circle"></i>
+                </a>
+
+                <a href="https://youtu.be/ia6pZOj2rus" target="_blank" class="video-item">
+                    <span>همه چیز در مورد بنیامین</span>
+                    <i data-feather="arrow-left-circle"></i>
+                </a>
+
+                <a href="https://youtu.be/qtXHXPQf_po?si=3r9lph2Wk9CybB2y" target="_blank" class="video-item">
+                    <span>با هوش مصنوعی هک کلاینت خودمو ساختم و تو سرورا تستش کردم !</span>
+                    <i data-feather="arrow-left-circle"></i>
+                </a>
+
+
+                <a href="https://youtu.be/TeGTLbrzKIw?si=HUmJ_ALgrMHgcl-I" target="_blank" class="video-item">
+                    <span>بررسی و تست راید کیوجی 250 ریس</span>
+                    <i data-feather="arrow-left-circle"></i>
+                </a>
+            </div>
+
+            <div class="video-column">
+                <div class="column-header">
+                    <i data-feather="instagram"></i> Reels & Shorts
+                </div>
+
+                <a href="https://www.instagram.com/reel/DR-IhloD-nJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="video-item">
+                    <span>شورتس بزارو پیشرفت کن</span>
+                    <i data-feather="arrow-left-circle"></i>
+                </a>
+
+                <a href="https://www.instagram.com/reel/DN04cDC0Mt9/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D" target="_blank" class="video-item">
+                    <span>هدیه ویژه برای گیمرها و یوتیوبرهای ماینکرفت </span>
+                    <i data-feather="arrow-left-circle"></i>
+                </a>
+
+                <a href="https://www.instagram.com/p/DU7ydfsDDlN/" target="_blank" class="video-item">
+                    <span>مـ/شروبی ترین عطر تاریخ</span>
+                    <i data-feather="arrow-left-circle"></i>
+                </a>
+
+            
+
+                <a href="https://youtube.com/shorts/5wsKe-8YqOw?si=DAM9lSIubPdFNCjx" target="_blank" class="video-item">
+                    <span>من یک دقیقه وقت دارم که این ماد ممنوعه رو تست کنم ! </span>
+                    <i data-feather="arrow-left-circle"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Ehsan Ghari. Designed for Impact.</p>
+    </footer>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
