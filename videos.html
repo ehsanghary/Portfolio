@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ehsan Ghari | Video Portfolio</title>
+    
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #FF9900;
+            --text: #ffffff;
+            --gray: #888888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg); color: var(--text); 
+            font-family: 'Inter', sans-serif; overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; position: fixed; width: 100%; top: 0;
+            background: rgba(5,5,5,0.85); backdrop-filter: blur(15px); z-index: 100;
+            border-bottom: 1px solid #1a1a1a; direction: ltr;
+        }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--accent); text-decoration: none; }
+        .back-link { 
+            color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 600; 
+            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        .container { max-width: 900px; margin: 120px auto 80px; padding: 0 20px; }
+        .page-title { text-align: center; margin-bottom: 60px; color: var(--accent); font-size: 0.9rem; letter-spacing: 4px; font-weight: 800; text-transform: uppercase; }
+
+        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .column-header { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; font-size: 1.1rem; font-weight: 800; border-right: 3px solid var(--accent); padding-right: 15px; }
+
+        .video-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 0; border-bottom: 1px solid #151515;
+            cursor: pointer; transition: 0.3s;
+        }
+        .video-item span { color: var(--gray); font-size: 0.95rem; transition: 0.3s; text-align: right; }
+        .video-item i { color: var(--accent); opacity: 0; transform: translateX(10px); transition: 0.3s; }
+        .video-item:hover { padding-right: 10px; border-bottom-color: #333; }
+        .video-item:hover span { color: #fff; }
+        .video-item:hover i { opacity: 1; transform: translateX(0); }
+
+        /* --- MODAL --- */
+        .video-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98);
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 1000; backdrop-filter: blur(15px); padding: 20px;
+        }
+        .modal-content { 
+            width: 100%; max-width: 800px; 
+            display: flex; flex-direction: column; align-items: center; gap: 20px;
+        }
+        .video-modal video { 
+            width: auto; max-width: 100%; 
+            max-height: 70vh; 
+            border-radius: 12px; box-shadow: 0 0 40px rgba(255,153,0,0.15); 
+            background: #000; border: 1px solid #222;
+        }
+
+        .close-video { 
+            background: rgba(255,255,255,0.1); color: #fff; 
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s; align-self: flex-end;
+        }
+        .close-video:hover { background: var(--accent); color: #000; transform: rotate(90deg); }
+
+        .modal-back-btn {
+            background: var(--accent); color: #000; border: none;
+            padding: 12px 35px; border-radius: 50px; font-size: 0.9rem;
+            font-weight: 800; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .modal-back-btn:hover { background: #fff; transform: translateY(-2px); }
+
+        footer { text-align: center; padding: 40px 20px; color: #444; font-size: 0.8rem; border-top: 1px solid #111; margin-top: 40px; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) { 
+            .video-grid { grid-template-columns: 1fr; gap: 50px; } 
+            .close-video { align-self: center; margin-bottom: 10px; }
+            .container { margin-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">EHSAN<span>GHARI</span></a>
+        <a href="index.html" class="back-link"><i data-feather="arrow-left"></i> Home</a>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title">Motion & Video Portfolio</h2>
+
+        <div class="video-grid">
+            <div class="video-column">
+                <div class="column-header"><i data-feather="youtube"></i> YouTube Edits</div>
+                
+                <div class="video-item" onclick="playVideo('https://s11.uupload.ir/files/ehsan121212/site/youtube1.mp4?play')">
+                    <span>پروژه اول یوتیوب</span>
+                    <i data-feather="play-circle"></i>
+                </div>
+
+                <div class="video-item" onclick="playVideo('https://s33.uupload.ir/files/ehsan121212/site/youtube%202.mp4?play')">
+                    <span>پروژه دوم یوتیوب</span>
+                    <i data-feather="play-circle"></i>
+                </div>
+            </div>
+
+            <div class="video-column">
+                <div class="column-header"><i data-feather="instagram"></i> Reels & Shorts</div>
+                
+                <div class="video-item" onclick="playVideo('https://s11.uupload.ir/files/ehsan121212/site/reel%201.mp4?play')">
+                    <span>ریلز شماره 1</span>
+                    <i data-feather="play-circle"></i>
+                </div>
+
+                <div class="video-item" onclick="playVideo('https://s11.uupload.ir/files/ehsan121212/site/reel%202.mp4?play')">
+                    <span>ریلز شماره 2</span>
+                    <i data-feather="play-circle"></i>
+                </div>
+
+                <div class="video-item" onclick="playVideo('https://s11.uupload.ir/files/ehsan121212/site/reel%203.mp4?play')">
+                    <span>ریلز شماره 3</span>
+                    <i data-feather="play-circle"></i>
+                </div>
+
+                <div class="video-item" onclick="playVideo('https://s11.uupload.ir/files/ehsan121212/site/reel%204.mp4?play')">
+                    <span>ریلز شماره 4</span>
+                    <i data-feather="play-circle"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-modal" id="vModal">
+        <div class="modal-content">
+            <div class="close-video" onclick="closeVideo()" title="Close">
+                <i data-feather="x" size="24"></i>
+            </div>
+
+            <video id="mainPlayer" controls controlsList="nodownload">
+                <source src="" type="video/mp4">
+            </video>
+
+            <button class="modal-back-btn" onclick="closeVideo()">
+                <i data-feather="arrow-right" size="18"></i>
+                <span>بازگشت به رزومه</span>
+            </button>
+        </div>
+    </div>
+
+    <footer><p>&copy; 2026 Ehsan Ghari. Professional Video Editor.</p></footer>
+
+    <script>
+        feather.replace();
+        const modal = document.getElementById('vModal');
+        const player = document.getElementById('mainPlayer');
+
+        function playVideo(src) {
+            player.src = src;
+            modal.style.display = 'flex';
+            player.play();
+        }
+
+        function closeVideo() {
+            modal.style.display = 'none';
+            player.pause();
+            player.src = "";
+        }
+
+        // بستن با کلیک روی فضای خالی بیرون ویدیو
+        window.onclick = (e) => { if(e.target == modal) closeVideo(); }
+    </script>
+</body>
+</html>
