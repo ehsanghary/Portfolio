@@ -23,11 +23,15 @@
             background-color: var(--bg); 
             color: var(--text); 
             font-family: 'Inter', sans-serif; 
-            height: 100vh;
+            /* تغییر به min-height تا در گوشی‌های کوچیک اجازه بزرگ شدن بده */
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            /* اجازه اسکرول عمودی در صورت نیاز، جلوگیری از اسکرول افقی */
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 20px;
         }
 
         /* پس‌زمینه متحرک ملایم */
@@ -52,6 +56,7 @@
             width: 100%;
             max-width: 800px;
             padding: 20px;
+            z-index: 1; /* برای اینکه بالاتر از پس‌زمینه نوری قرار بگیره */
         }
 
         .logo { 
@@ -156,9 +161,26 @@
             opacity: 0.2;
         }
 
+        /* --- تنظیمات دقیق برای موبایل --- */
         @media (max-width: 600px) {
-            .options-grid { grid-template-columns: 1fr; }
-            .logo { font-size: 2rem; }
+            .options-grid { 
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+            }
+            .logo { 
+                font-size: 2.2rem; 
+            }
+            .subtitle {
+                margin-bottom: 40px;
+                font-size: 0.9rem;
+            }
+            .option-card {
+                padding: 35px 20px; /* کاهش پدینگ برای جا شدن بهتر در گوشی */
+                gap: 15px;
+            }
+            .option-card h2 {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
@@ -167,7 +189,7 @@
     <div class="bg-glow"></div>
 
     <div class="landing-container">
-        <div class="logo">EHSAN<span>GHARI</span></div>
+        <a href="#" class="logo">EHSAN<span>GHARI</span></a>
         <p class="subtitle">Visual Storyteller & Editor</p>
 
         <div class="options-grid">

@@ -17,10 +17,19 @@
             --gray: #888888;
         }
 
+                /* اضافه کردن استایل برای دکمه غیرفعال */
+            .order-btn:disabled {
+                background: #333 !important;
+                color: #666 !important;
+                cursor: not-allowed;
+                opacity: 0.6;
+                pointer-events: none; /* این خط باعث میشه حتی با کدنویسی هم کلیک نشه */
+            }
+
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 12px; }
+        img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 12px; pointer-events: none; }
 
         /* --- NAVIGATION --- */
         nav {
@@ -43,15 +52,29 @@
 
         /* --- MARQUEE SYSTEM --- */
         .marquee-section { 
-            padding: 40px 0; overflow: hidden; width: 100%; position: relative; border-bottom: 1px solid #111; 
+            padding: 40px 0; width: 100%; position: relative; border-bottom: 1px solid #111; 
             scroll-margin-top: 80px;
         }
+        
+        /* باکس مخصوص اسکرول فقط برای عکس‌ها */
+        .marquee-viewport {
+            width: 100%;
+            overflow-x: auto;
+            scrollbar-width: none; /* فایرفاکس */
+            cursor: grab;
+        }
+        .marquee-viewport::-webkit-scrollbar { display: none; } /* کروم و سافاری */
+        .marquee-viewport:active { cursor: grabbing; }
+
         .marquee-title { text-align: center; margin-bottom: 25px; color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 3px; opacity: 0.7; }
         .marquee-track { display: flex; width: max-content; gap: 25px; padding: 20px 0; will-change: transform; }
 
         #trusted-track .marquee-track { gap: 350px; }
         #trusted-track .client-circle { width: 100px; height: 100px; border-radius: 50%; background: #111; padding: 15px; filter: grayscale(1) opacity(0.6); transition: 0.5s; }
         #trusted-track .client-circle:hover { filter: grayscale(0) opacity(1); transform: scale(1.1); }
+
+        /* توقف انیمیشن هنگام هاور روی عکس‌ها */
+        .marquee-viewport:hover .marquee-track { animation-play-state: paused; }
 
         @keyframes scroll-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @keyframes scroll-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
@@ -91,7 +114,15 @@
         .socials a { color: #fff; transition: 0.3s; }
         .socials a:hover { color: var(--accent); transform: scale(1.2); }
 
-        @media (max-width: 900px) { .about-section { flex-direction: column-reverse; text-align: center; } .nav-links { display: none; } }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) { 
+            .about-section { flex-direction: column-reverse; text-align: center; padding: 60px 5%; gap: 40px; } 
+            .nav-links { display: none; } 
+            .hero h1 { font-size: 2.5rem; }
+            .about-image-wrap { flex: 0 0 250px; height: 250px; }
+            .thumb-item { width: 280px; }
+            .banner-item { width: 350px; }
+        }
     </style>
 </head>
 <body>
@@ -114,91 +145,104 @@
 
     <div id="trusted-track" class="marquee-section">
         <div class="marquee-title">Trusted By</div>
-        <div class="marquee-track move-left" style="--speed: 80s;"> 
-            <div class="item client-circle"><img src="https://i.ibb.co/5Xs87kLh/channels4-profile-7.webp"></div>
-            <div class="item client-circle"><img src="https://i.ibb.co/35M7XVJx/channels4-profile-6.webp"></div>
-            <div class="item client-circle"><img src="https://i.ibb.co/CKZhpvxx/channels4-profile-5.webp"></div>
-            <div class="item client-circle"><img src="https://i.ibb.co/gL9y0PXC/channels4-profile-4.webp"></div>
-            <div class="item client-circle"><img src="https://i.ibb.co/93HFpL0T/channels4-profile-3.webp"></div>
-            <div class="item client-circle"><img src="https://i.ibb.co/wbZGFYX/channels4-profile-2.webp"></div>
-            <div class="item client-circle"><img src="https://i.ibb.co/rfwLpKY3/channels4-profile-1.webp"></div>
+        <div class="marquee-viewport">
+            <div class="marquee-track move-left" style="--speed: 80s;"> 
+                <div class="item client-circle"><img src="https://i.ibb.co/5Xs87kLh/channels4-profile-7.webp"></div>
+                <div class="item client-circle"><img src="https://i.ibb.co/35M7XVJx/channels4-profile-6.webp"></div>
+                <div class="item client-circle"><img src="https://i.ibb.co/CKZhpvxx/channels4-profile-5.webp"></div>
+                <div class="item client-circle"><img src="https://i.ibb.co/gL9y0PXC/channels4-profile-4.webp"></div>
+                <div class="item client-circle"><img src="https://i.ibb.co/93HFpL0T/channels4-profile-3.webp"></div>
+                <div class="item client-circle"><img src="https://i.ibb.co/wbZGFYX/channels4-profile-2.webp"></div>
+                <div class="item client-circle"><img src="https://i.ibb.co/rfwLpKY3/channels4-profile-1.webp"></div>
+            </div>
         </div>
     </div>
 
     <div id="thumbnails" class="marquee-section" style="background: #080808;">
         <div class="marquee-title">Featured Thumbnails</div>
-        <div class="marquee-track move-right" style="--speed: 1000s;">
-            <div class="item thumb-item"><img src="https://i.ibb.co/20F2xfNk/photo-2026-01-28-12-11-10.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/gbnxd0rj/photo-2026-01-28-12-09-3213.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/Y4pNXvsS/photo-2026-01-28-12-10-47.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/whpyGjq6/photo-2026-01-28-12-10-43.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/yBXbWLjQ/photo-2026-01-28-12-10-40.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/JJDFLd3/photo-2026-01-28-12-10-38.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/d4mPb2nk/photo-2026-01-28-12-10-35.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/w9wKrxr/photo-2026-01-28-12-10-31.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/4Zp6b6JY/photo-2026-01-28-12-10-28.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/ZpWpY8kZ/photo-2026-01-28-12-10-24.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/XxD8D7q5/photo-2026-01-28-12-10-14.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/JRgK0702/2.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/xS0JGmFj/photo-2026-01-28-12-10-08.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/B51dPgmf/vigiland.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/MDnLYSZv/photo-2026-01-28-12-09-56.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/Xff02LpC/photo-2026-01-28-12-09-53.webp"></div>
-            <div class="item thumb-item"><img src="https://i.ibb.co/1ttQjJmH/photo-2026-01-28-12-09-43.webp"></div>
+        <div class="marquee-viewport">
+            <div class="marquee-track move-right" style="--speed: 1000s;">
+                <div class="item thumb-item"><img src="https://i.ibb.co/20F2xfNk/photo-2026-01-28-12-11-10.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/gbnxd0rj/photo-2026-01-28-12-09-3213.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/Y4pNXvsS/photo-2026-01-28-12-10-47.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/whpyGjq6/photo-2026-01-28-12-10-43.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/yBXbWLjQ/photo-2026-01-28-12-10-40.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/JJDFLd3/photo-2026-01-28-12-10-38.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/d4mPb2nk/photo-2026-01-28-12-10-35.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/w9wKrxr/photo-2026-01-28-12-10-31.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/4Zp6b6JY/photo-2026-01-28-12-10-28.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/ZpWpY8kZ/photo-2026-01-28-12-10-24.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/XxD8D7q5/photo-2026-01-28-12-10-14.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/TMT43TCN/photo-2026-01-28-12-10-11.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/xS0JGmFj/photo-2026-01-28-12-10-08.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/QvLVnLxZ/photo-2026-01-28-12-09-59.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/MDnLYSZv/photo-2026-01-28-12-09-56.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/Xff02LpC/photo-2026-01-28-12-09-53.webp"></div>
+                <div class="item thumb-item"><img src="https://i.ibb.co/1ttQjJmH/photo-2026-01-28-12-09-43.webp"></div>
+            </div>
         </div>
     </div>
 
     <div id="stories" class="marquee-section">
         <div class="marquee-title">Social Stories</div>
-        <div class="marquee-track move-left" style="--speed: 500s;">
-            <div class="item story-item"><img src="https://i.ibb.co/1fTsbZvm/magnific-1sucj-Kar4r.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/SSCmXF5/photo-2026-01-06-23-46-52.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/39vVRgB4/photo-2026-01-06-23-46-58.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/jkZ9wLsS/magnific-DBzsoujpcl.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/84zyKRbD/photo-2026-01-06-23-47-07.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/bg8k2BVs/photo-2026-01-06-23-47-11.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/RT8tfdY4/magnific-d-IWS80-FXSL.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/ksstMkX9/photo-2026-02-19-13-50-23.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/RpkbQ1kH/photo-2026-01-06-23-47-03.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/PvY8bqyn/photo-2026-01-06-23-47-15.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/7dFx9SVD/magnific-Vd-Aj-ISs-MMU.webp"></div>
-            <div class="item story-item"><img src="https://i.ibb.co/XfJWbX62/photo-2026-01-06-23-47-51.webp"></div>
+        <div class="marquee-viewport">
+            <div class="marquee-track move-left" style="--speed: 500s;">
+                <div class="item story-item"><img src="https://i.ibb.co/ksstMkX9/photo-2026-02-19-13-50-23.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/SSCmXF5/photo-2026-01-06-23-46-52.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/39vVRgB4/photo-2026-01-06-23-46-58.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/RpkbQ1kH/photo-2026-01-06-23-47-03.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/5X1TCxTW/photo-2026-01-06-23-47-00.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/84zyKRbD/photo-2026-01-06-23-47-07.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/bg8k2BVs/photo-2026-01-06-23-47-11.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/PvY8bqyn/photo-2026-01-06-23-47-15.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/dTxJmhS/photo-2026-01-06-23-47-19.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/1Y2P1MNg/photo-2026-01-06-23-47-28.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/bZtgPj4/photo-2026-01-06-23-47-40.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/4njmXWq0/photo-2026-01-06-23-47-45.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/XfJWbX62/photo-2026-01-06-23-47-51.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/cKH5xN1v/photo-2026-01-06-23-47-55.webp"></div>
+                <div class="item story-item"><img src="https://i.ibb.co/MkJF6VhJ/photo-2026-01-06-23-48-01.webp"></div>
+            </div>
         </div>
     </div>
 
     <div id="posters" class="marquee-section" style="background: #080808;">
         <div class="marquee-title">Creative Posters</div>
-        <div class="marquee-track move-right" style="--speed: 500s;">
-            <div class="item poster-item"><img src="https://i.ibb.co/JFkvvH3M/photo-2026-01-28-13-59-29.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/r2DN2WWz/photo-2026-01-28-13-59-56.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/21k6jPzx/magnific-74xopd-QJAL.webp"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/SDh1bc9s/photo-2026-01-28-13-59-37.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/HD8QnCmF/photo-2026-01-28-13-59-10.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/TMqyyNdB/magnific-Te2xb3z-VNR.webp"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/wZm9xB2F/photo-2026-01-28-13-58-39.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/5hLJHXKg/photo-2026-01-28-13-59-22.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/WWJvhcQV/magnific-DBzsr-B0pcl.webp"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/kV8dyBsV/photo-2026-01-28-13-59-32.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/TxQRWsth/magnific-h-Ee4xkbvq-L.webp"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/4ZtLptXB/photo-2026-01-28-13-59-42.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/qY88ZqMK/photo-2026-01-28-13-59-16.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/KjzHbvmt/photo-2026-01-28-13-59-00.jpg"></div>
-            <div class="item poster-item"><img src="https://i.ibb.co/21gVCGsF/magnific-braz9x-H5-Y2.webp"></div>
+        <div class="marquee-viewport">
+            <div class="marquee-track move-right" style="--speed: 500s;">
+                <div class="item poster-item"><img src="https://i.ibb.co/r2DN2WWz/photo-2026-01-28-13-59-56.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/4ZtLptXB/photo-2026-01-28-13-59-42.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/WNFh0KNm/photo-2026-01-28-13-59-40.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/SDh1bc9s/photo-2026-01-28-13-59-37.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/kV8dyBsV/photo-2026-01-28-13-59-32.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/JFkvvH3M/photo-2026-01-28-13-59-29.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/VWmxfdyf/photo-2026-01-28-13-59-26.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/5hLJHXKg/photo-2026-01-28-13-59-22.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/Hk9m67B/photo-2026-01-28-13-59-19.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/qY88ZqMK/photo-2026-01-28-13-59-16.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/HD8QnCmF/photo-2026-01-28-13-59-10.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/ZR2zh3Bm/photo-2026-01-28-13-59-03.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/KjzHbvmt/photo-2026-01-28-13-59-00.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/Sw2wbyzs/photo-2026-01-28-13-58-57.jpg"></div>
+                <div class="item poster-item"><img src="https://i.ibb.co/wZm9xB2F/photo-2026-01-28-13-58-39.jpg"></div>
+            </div>
         </div>
     </div>
 
     <div id="banners" class="marquee-section">
         <div class="marquee-title">Website Banners</div>
-        <div class="marquee-track move-left" style="--speed: 500s;">
-            <div class="item banner-item"><img src="https://i.ibb.co/kgH5Mpwb/photo-2026-01-28-14-03-59.jpg"></div>
-            <div class="item banner-item"><img src="https://i.ibb.co/6cHJmFkH/photo-2026-01-28-14-03-57.jpg"></div>
-            <div class="item banner-item"><img src="https://i.ibb.co/hFxDdb66/photo-2026-01-28-14-03-54.jpg"></div>
-            <div class="item banner-item"><img src="https://i.ibb.co/Mk5y8gRD/photo-2026-01-28-14-03-50.jpg"></div>
-            <div class="item banner-item"><img src="https://i.ibb.co/BKcJfgnh/photo-2026-01-28-14-03-46.jpg"></div>
-            <div class="item banner-item"><img src="https://i.ibb.co/5JcrqQS/photo-2026-01-28-14-03-43.jpg"></div>
-            <div class="item banner-item"><img src="https://i.ibb.co/sdT5St0t/photo-2026-01-28-14-03-41.jpg"></div>
-            <div class="item banner-item"><img src="https://i.ibb.co/hFzNMcMg/photo-2026-01-28-14-03-39.jpg"></div>
-            <div class="item banner-item"><img src="https://i.ibb.co/4ZyhgBqY/photo-2026-01-28-14-03-28.jpg"></div>
+        <div class="marquee-viewport">
+            <div class="marquee-track move-left" style="--speed: 500s;">
+                <div class="item banner-item"><img src="https://i.ibb.co/kgH5Mpwb/photo-2026-01-28-14-03-59.jpg"></div>
+                <div class="item banner-item"><img src="https://i.ibb.co/6cHJmFkH/photo-2026-01-28-14-03-57.jpg"></div>
+                <div class="item banner-item"><img src="https://i.ibb.co/hFxDdb66/photo-2026-01-28-14-03-54.jpg"></div>
+                <div class="item banner-item"><img src="https://i.ibb.co/Mk5y8gRD/photo-2026-01-28-14-03-50.jpg"></div>
+                <div class="item banner-item"><img src="https://i.ibb.co/BKcJfgnh/photo-2026-01-28-14-03-46.jpg"></div>
+                <div class="item banner-item"><img src="https://i.ibb.co/5JcrqQS/photo-2026-01-28-14-03-43.jpg"></div>
+                <div class="item banner-item"><img src="https://i.ibb.co/sdT5St0t/photo-2026-01-28-14-03-41.jpg"></div>
+                <div class="item banner-item"><img src="https://i.ibb.co/hFzNMcMg/photo-2026-01-28-14-03-39.jpg"></div>
+                <div class="item banner-item"><img src="https://i.ibb.co/4ZyhgBqY/photo-2026-01-28-14-03-28.jpg"></div>
+            </div>
         </div>
     </div>
 
@@ -206,12 +250,13 @@
         <div class="about-text">
             <h2>About Me</h2>
             <p><strong>Hi, I'm Ehsan!</strong> I specialized in high-end thumbnails and motion graphics. I help creators maximize their reach through psychological design and high-quality visual storytelling.</p>
-            <button class="order-btn" onclick="openModal()">Order Now</button>
+            <!-- <button class="order-btn" onclick="openModal()">Order Now</button> -->
+            <button class="order-btn" disabled>Order Now</button>
         </div>
-        <div class="about-image-wrap"><img src="https://i.ibb.co/27Hk89Df/photo-2026-06-09-23-45-06.webp" alt="Ehsan"></div>
+        <div class="about-image-wrap"><img src="https://i.ibb.co/8DNvzLtS/photo-2026-06-09-23-45-06.webp" alt="Ehsan"></div>
     </section>
 
-    <div class="modal" id="orderModal">
+<div class="modal" id="orderModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()"><i data-feather="x"></i></span>
             <h2 style="color:var(--accent); margin-bottom: 25px;">Project Details</h2>
@@ -229,7 +274,7 @@
                 </div>
                 <div class="form-group">
                     <label>Estimated Budget</label>
-                    <input type="text" name="budget" placeholder="e.g. $50 - $200" required>
+                    <input type="text" name="budget" placeholder="e.g. -------" required>
                 </div>
                 <div class="form-group">
                     <label>Project Description</label>
@@ -247,9 +292,10 @@
         </div>
         <p>&copy; Professional Creative Studio.</p>
     </footer>
-
+    
     <script>
         feather.replace();
+
         document.querySelectorAll('.marquee-track').forEach(track => {
             const items = Array.from(track.children);
             const parentSection = track.closest('.marquee-section');
@@ -261,6 +307,49 @@
                 });
             }
         });
+
+        
+        const viewports = document.querySelectorAll('.marquee-viewport');
+        viewports.forEach(viewport => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            viewport.addEventListener('mousedown', (e) => {
+                if (e.button !== 0) return; 
+                isDown = true;
+                viewport.style.cursor = 'grabbing';
+                startX = e.pageX - viewport.offsetLeft;
+                scrollLeft = viewport.scrollLeft;
+                
+                const track = viewport.querySelector('.marquee-track');
+                if(track) track.style.animationPlayState = 'paused';
+            });
+            
+            viewport.addEventListener('mouseleave', () => {
+                isDown = false;
+                viewport.style.cursor = 'grab';
+                const track = viewport.querySelector('.marquee-track');
+                if(track) track.style.animationPlayState = 'running';
+            });
+            
+            viewport.addEventListener('mouseup', () => {
+                isDown = false;
+                viewport.style.cursor = 'grab';
+                const track = viewport.querySelector('.marquee-track');
+                if(track) track.style.animationPlayState = 'running';
+            });
+            
+            viewport.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - viewport.offsetLeft;
+                const walk = (x - startX) * 2; 
+                viewport.scrollLeft = scrollLeft - walk;
+            });
+        });
+
+        // سیستم مدال
         function openModal() { document.getElementById('orderModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
         window.onclick = (e) => { if(e.target == document.getElementById('orderModal')) closeModal(); }
